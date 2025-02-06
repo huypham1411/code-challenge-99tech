@@ -73,6 +73,7 @@ const CurrencySwapForm: React.FC = () => {
     >
       <div>
         <TokenSelect
+          data-testid="fromCurrency"
           name="fromCurrency"
           control={control}
           label="From Currency"
@@ -86,6 +87,7 @@ const CurrencySwapForm: React.FC = () => {
           control={control}
           render={({ field }) => (
             <InputField
+              data-testid="fromAmount"
               label="Amount"
               type="number"
               {...field}
@@ -100,6 +102,7 @@ const CurrencySwapForm: React.FC = () => {
 
       <div>
         <TokenSelect
+          data-testid="toCurrency"
           name="toCurrency"
           control={control}
           label="To Currency"
@@ -112,7 +115,12 @@ const CurrencySwapForm: React.FC = () => {
           name="toAmount"
           control={control}
           render={({ field }) => (
-            <InputField label="Converted Amount" {...field} readOnly />
+            <InputField
+              data-testid="toAmount"
+              label="Converted Amount"
+              {...field}
+              readOnly
+            />
           )}
         />
       </div>

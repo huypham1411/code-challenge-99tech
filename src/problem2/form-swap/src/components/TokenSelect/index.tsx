@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Controller, Control, FieldValues, Path } from 'react-hook-form'
 
 export type Token = {
@@ -21,9 +21,24 @@ const TokenSelect = <T extends FieldValues>({
   tokens,
 }: TokenSelectProps<T>) => {
   const [isOpen, setIsOpen] = useState(false)
+  const dropdownRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsOpen(false)
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [])
 
   return (
-    <div className="space-y-2 relative">
+    <div className="space-y-2 relative" ref={dropdownRef}>
       <label htmlFor={name as string} className="font-semibold">
         {label}
       </label>
